@@ -34,9 +34,6 @@ func update_client_player_info(info: Array) -> void:
 @rpc("authority", "call_local", "reliable")
 func update_client_game_state(state: Dictionary) -> void:
     _game.game_state = state
-    for i in range(_game.game_state["ready_round_end"].size()):
-        if _game.game_state["ready_round_end"][i]:
-            _player_names_container.get_child(i).text = "✓ " + _player_info[i]["username"]
 
 
 @rpc("authority", "call_local", "reliable")
@@ -44,7 +41,6 @@ func start_game() -> void:
     for _i in range(_player_info.size()):
         _game.game_state["round_scores"].push_back(0)
         _game.game_state["total_scores"].push_back(0)
-        _game.game_state["ready_round_end"].push_back(false)
 
     for _i in range(STARTING_HAND_SIZE):
         var letter := CardData.draw_card()
@@ -71,10 +67,10 @@ func end_turn(id: int) -> void:
     if not is_multiplayer_authority():
         return
     var ready_player_ix := _get_player_index(id)
-    _game.game_state["ready_round_end"][ready_player_ix] = true
-    update_client_game_state.rpc(_game.game_state)
-    for p in _game.game_state["ready_round_end"]:
-        if not p:
+    _player_info[ready_player_ix]["ready_round_end"] = true
+    update_client_player_info.rpc(_player_info)
+    for p in _player_info:
+        if not p["ready_round_end"]:
             return
     print("Round over!")
 
@@ -100,13 +96,6 @@ func ready_player() -> void:
         update_client_game_state.rpc(_game.game_state)
 
 
-func _get_player_info(id: int) -> Dictionary:
-    for v in _player_info:
-        if v["id"] == id:
-            return v
-    return {}
-
-
 func _get_player_index(id: int) -> int:
     var i := 0
     while i < _player_info.size():
@@ -119,15 +108,16 @@ func _get_player_index(id: int) -> int:
 func _update_player_name_labels() -> void:
     for child in _player_names_container.get_children():
         child.queue_free()
-    for v in _player_info:
-        _player_names_container.add_child(_create_player_name_label(v["username"], v["color"]))
+
+    for info in _player_info:
+        _player_names_container.add_child(_create_player_name_label(info))
 
 
-func _create_player_name_label(n: String, c: Color) -> Label:
+func _create_player_name_label(info: Dictionary) -> Label:
     var label := Label.new()
     label.label_settings = LabelSettings.new()
-    label.text = n
-    label.label_settings.font_color = c
+    label.text = ("✓ " if info["ready_round_end"] else "") + info["username"]
+    label.label_settings.font_color = info["color"]
     return label
 
 
@@ -135,11 +125,11 @@ func _ready() -> void:
     multiplayer.peer_connected.connect(_on_player_connected)
     multiplayer.peer_disconnected.connect(_on_player_disconnected)
     %PlayerIdentifier.text = "Player %d - %s" % [_multiplayer_id, username]
-    _player_info.push_back({"id": _multiplayer_id, "username": username, "color": color})
+    _player_info.push_back({"id": _multiplayer_id, "username": username, "color": color, "ready_round_end": false})
     %StartButton.visible = is_multiplayer_authority()
     %StartButton.disabled = not is_multiplayer_authority()
     if is_multiplayer_authority():
-        _game.game_state = {"round_id": 0, "round_scores": [], "total_scores": [], "ready_round_end": []}
+        _game.game_state = {"round_id": 0, "round_scores": [], "total_scores": []}
 
 
 func _on_player_connected(id: int) -> void:

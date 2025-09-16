@@ -11,33 +11,39 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qtw4q")
 
-[node name="DrawButton" type="Button" parent="."]
-unique_name_in_owner = true
+[node name="Margins" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -96.0
-offset_right = 172.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="DrawButton" type="Button" parent="Margins"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "Draw
 "
 
-[node name="EndTurnButton" type="Button" parent="."]
+[node name="EndTurnButton" type="Button" parent="Margins"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -286.0
-offset_top = -96.0
-grow_horizontal = 0
-grow_vertical = 0
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme_override_font_sizes/font_size = 64
 text = "End Turn"
+
+[node name="PlayerInfo" type="HBoxContainer" parent="Margins"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
 
 [node name="PlayerLetters" type="Label" parent="."]
 unique_name_in_owner = true
@@ -66,5 +72,5 @@ offset_bottom = 40.0
 grow_horizontal = 2
 alignment = 1
 
-[connection signal="pressed" from="DrawButton" to="." method="_on_draw_button_pressed"]
-[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="Margins/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="Margins/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

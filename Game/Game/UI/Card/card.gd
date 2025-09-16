@@ -17,3 +17,11 @@ func highlight(b: bool) -> void:
         _anim.play("selected")
     else:
         _anim.play_backwards("selected")
+
+
+func _on_card_panel_mouse_entered() -> void:
+    highlight(true)
+
+
+func _on_card_panel_mouse_exited() -> void:
+    highlight(false)

@@ -1,10 +1,10 @@
 class_name GameMultiplayerManager
 extends Control
 
-const STARTING_HAND_SIZE: int = 7
+const STARTING_HAND_SIZE: int = 5
 
 @onready var _multiplayer_id := multiplayer.get_unique_id()
-@onready var _player_names_container: VBoxContainer = %PlayerNames
+@onready var _player_names_container: HBoxContainer = %PlayerNames
 @onready var _game: Game = %Game
 
 var username := "username"
@@ -154,15 +154,9 @@ func _on_player_ready_round_end() -> void:
 
 func _end_round() -> void:
     print("Ending round")
-    var rolls: Array = _game.game_state["round_scores"]
-    var max_roll: int = rolls.max()
-    var argmax: Array[int] = []
-    for i in range(rolls.size()):
-        if rolls[i] == max_roll:
-            argmax.push_back(i)
-    for i in argmax:
-        _game.game_state["total_scores"][i] += 1
-    end_round.rpc(argmax)
+
+
+#    end_round.rpc(argmax)
 
 
 func _on_game_draw_card() -> void:

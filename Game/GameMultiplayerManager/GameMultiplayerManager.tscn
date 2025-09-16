@@ -20,6 +20,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="TopBarContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="PlayerIdentifier" type="Label" parent="TopBarContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Player N - Username"
+
+[node name="PlayerNames" type="HBoxContainer" parent="TopBarContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="GameContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Game" parent="GameContainer" instance=ExtResource("2_xwe6p")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
 [node name="StartButton" type="Button" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -28,44 +64,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -23.0
-offset_top = -15.5
-offset_right = 23.0
-offset_bottom = 15.5
+offset_left = -79.0
+offset_top = -48.0
+offset_right = 79.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
 text = "Start"
 
-[node name="PlayerIdentifier" type="Label" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Player N - Username"
-
-[node name="PlayerNames" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
-grow_vertical = 2
-alignment = 1
-
-[node name="Game" parent="." instance=ExtResource("2_xwe6p")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-
+[connection signal="draw_card" from="GameContainer/Game" to="." method="_on_game_draw_card"]
+[connection signal="end_turn" from="GameContainer/Game" to="." method="_on_game_end_turn"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="draw_card" from="Game" to="." method="_on_game_draw_card"]
-[connection signal="end_turn" from="Game" to="." method="_on_game_end_turn"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bqja83112web"]
 
 [ext_resource type="Script" uid="uid://bpoxnv2syvgna" path="res://Game/Game/UI/Card/card.gd" id="1_rjlel"]
-[ext_resource type="Theme" path="res://game/cards/card_theme.tres" id="2_rjlel"]
+[ext_resource type="Theme" uid="uid://qifpfel0mll" path="res://Game/Game/UI/Card/card_theme.tres" id="2_rjlel"]
 
 [sub_resource type="Animation" id="Animation_nooli"]
 length = 0.001
@@ -106,8 +106,17 @@ _data = {
 }
 
 [node name="Card" type="MarginContainer"]
-offset_right = 136.0
-offset_bottom = 136.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 176.0
+offset_top = -356.0
+offset_right = 312.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(64, 64)
 size_flags_horizontal = 2
 size_flags_vertical = 2
@@ -117,7 +126,6 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 script = ExtResource("1_rjlel")
-metadata/_edit_use_anchors_ = true
 
 [node name="CardPanel" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(128, 128)
@@ -148,3 +156,6 @@ vertical_alignment = 2
 libraries = {
 &"": SubResource("AnimationLibrary_fjspr")
 }
+
+[connection signal="mouse_entered" from="CardPanel" to="." method="_on_card_panel_mouse_entered"]
+[connection signal="mouse_exited" from="CardPanel" to="." method="_on_card_panel_mouse_exited"]

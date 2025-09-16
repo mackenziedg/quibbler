@@ -1,0 +1,19 @@
+class_name Card
+extends MarginContainer
+
+@export var letter: String = "A":
+    set(l):
+        _letter_label.text = l
+        _score_label.text = str(CardData.points(l))
+        letter = l
+
+@onready var _letter_label := %LetterLabel
+@onready var _score_label := %ScoreLabel
+@onready var _anim := $AnimationPlayer
+
+
+func highlight(b: bool) -> void:
+    if b:
+        _anim.play("selected")
+    else:
+        _anim.play_backwards("selected")

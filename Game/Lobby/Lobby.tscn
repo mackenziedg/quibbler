@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://duc8ms1j6mwon"]
+
+[ext_resource type="Script" uid="uid://b8eah33fhpkl5" path="res://Game/Lobby/Lobby.gd" id="1_06f2m"]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06f2m")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IPAddressEdit" type="LineEdit" parent="Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/minimum_character_width = 8
+text = "127.0.0.1:12345"
+
+[node name="UsernameEdit" type="LineEdit" parent="Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/minimum_character_width = 8
+text = "NewUser"
+placeholder_text = "Username"
+
+[node name="HostButton" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Host"
+
+[node name="ClientButton" type="Button" parent="Menu"]
+layout_mode = 2
+text = "Connect"

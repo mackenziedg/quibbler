@@ -60,19 +60,14 @@ const _CARD_POINTS := [
 12, # Z
 ]
 
-@onready var valid_words: PackedStringArray = FileAccess.get_file_as_string("res://Game/Game/assets/data/dictionary.txt").split("\n")
+@onready var valid_words: PackedStringArray = FileAccess.get_file_as_string("res://Game/Game/assets/data/dictionary_en.txt").split("\n")
 
 
 func score_word(word: String) -> int:
     var score := 0
     for l in word:
         score += CardData.points(l)
-    if word not in valid_words:
-                        score *= -1
     return score
-
-
-
 
 
 func draw_card() -> String:

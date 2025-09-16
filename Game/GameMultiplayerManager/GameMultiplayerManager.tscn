@@ -39,6 +39,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
+[node name="TotalScoresContainer" type="HBoxContainer" parent="TopBarContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
 [node name="GameContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15

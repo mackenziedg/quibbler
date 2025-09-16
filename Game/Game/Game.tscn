@@ -41,12 +41,12 @@ theme_override_constants/separation = 32
 [node name="WordContainerPanel" type="PanelContainer" parent="CardsSuperContainer"]
 layout_mode = 2
 
-[node name="WordContainer" type="GridContainer" parent="CardsSuperContainer/WordContainerPanel"]
+[node name="WordContainer" type="HFlowContainer" parent="CardsSuperContainer/WordContainerPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 276)
 layout_mode = 2
 size_flags_vertical = 6
-columns = 5
+last_wrap_alignment = 1
 
 [node name="SubmitWordButton" type="Button" parent="CardsSuperContainer"]
 unique_name_in_owner = true
@@ -59,24 +59,12 @@ text = "Submit Word"
 [node name="HandContainerPanel" type="PanelContainer" parent="CardsSuperContainer"]
 layout_mode = 2
 
-[node name="HandContainer" type="GridContainer" parent="CardsSuperContainer/HandContainerPanel"]
+[node name="HandContainer" type="HFlowContainer" parent="CardsSuperContainer/HandContainerPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 276)
 layout_mode = 2
 size_flags_vertical = 6
-columns = 5
-
-[node name="PlayerTotalScores" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
-alignment = 1
+last_wrap_alignment = 1
 
 [node name="DrawButton" type="Button" parent="."]
 unique_name_in_owner = true

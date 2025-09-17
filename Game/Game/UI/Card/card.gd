@@ -14,9 +14,9 @@ extends MarginContainer
 
 func highlight(b: bool) -> void:
     if b:
-        _anim.play("selected")
+        _anim.play("mouseover")
     else:
-        _anim.play_backwards("selected")
+        _anim.play_backwards("mouseover")
 
 
 func _on_card_panel_mouse_entered() -> void:

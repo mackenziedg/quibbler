@@ -1,6 +1,83 @@
-[gd_scene load_steps=2 format=3 uid="uid://duc8ms1j6mwon"]
+[gd_scene load_steps=9 format=3 uid="uid://duc8ms1j6mwon"]
 
 [ext_resource type="Script" uid="uid://b8eah33fhpkl5" path="res://Game/Lobby/Lobby.gd" id="1_06f2m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06f2m"]
+bg_color = Color(0, 0.6, 0.85882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7a8p8"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0j4bq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aiidj"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9647059, 0.45882353, 0.47843137, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie6wa"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9647059, 0.45882353, 0.47843137, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.9647059, 0.45882353, 0.47843137, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kws4"]
+content_margin_left = 24.0
+content_margin_top = 12.0
+content_margin_right = 24.0
+content_margin_bottom = 12.0
+bg_color = Color(0.7529412, 0.79607844, 0.8627451, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06f2m"]
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -18,6 +95,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_06f2m")
 
 [node name="Menu" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -26,33 +104,106 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -225.5
+offset_top = -166.5
+offset_right = 225.5
+offset_bottom = 166.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 128
+alignment = 1
 
-[node name="IPAddressEdit" type="LineEdit" parent="Menu"]
+[node name="UserInfo" type="HBoxContainer" parent="Menu"]
+layout_mode = 2
+
+[node name="UsernameEdit" type="LineEdit" parent="Menu/UserInfo"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+theme_override_colors/font_placeholder_color = Color(0.7529412, 0.79607844, 0.8627451, 1)
+theme_override_colors/caret_color = Color(0.054545455, 0.057670455, 0.0625, 1)
 theme_override_constants/minimum_character_width = 8
-text = "127.0.0.1:12345"
-
-[node name="UsernameEdit" type="LineEdit" parent="Menu"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/minimum_character_width = 8
-text = "NewUser"
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_7a8p8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7a8p8")
 placeholder_text = "Username"
+alignment = 1
+max_length = 16
+context_menu_enabled = false
 
-[node name="HostButton" type="Button" parent="Menu"]
+[node name="ColorPicker" type="ColorPickerButton" parent="Menu/UserInfo"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-text = "Host"
+theme_override_styles/normal = SubResource("StyleBoxFlat_0j4bq")
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+edit_intensity = false
 
-[node name="ClientButton" type="Button" parent="Menu"]
+[node name="ButtonContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 2
-text = "Connect"
+size_flags_horizontal = 4
+alignment = 2
 
-[connection signal="pressed" from="Menu/HostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="Menu/ClientButton" to="." method="_on_client_button_pressed"]
+[node name="HostButton" type="Button" parent="Menu/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.54509807, 0.60784316, 0.7058824, 1)
+theme_override_constants/outline_size = 18
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_aiidj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ie6wa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aiidj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4kws4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_06f2m")
+disabled = true
+text = "Create Room"
+
+[node name="OrLabel" type="Label" parent="Menu/ButtonContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 18
+theme_override_font_sizes/font_size = 61
+text = "OR"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="IPAddressEdit" type="LineEdit" parent="Menu/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+theme_override_colors/font_placeholder_color = Color(0.7529412, 0.79607844, 0.8627451, 1)
+theme_override_colors/caret_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+theme_override_constants/minimum_character_width = 8
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_7a8p8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7a8p8")
+placeholder_text = "Host Address"
+alignment = 1
+virtual_keyboard_type = 2
+
+[node name="ClientButton" type="Button" parent="Menu/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.54509807, 0.60784316, 0.7058824, 1)
+theme_override_colors/font_outline_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+theme_override_constants/outline_size = 18
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_aiidj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ie6wa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aiidj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_4kws4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_06f2m")
+disabled = true
+text = "Connect to Room"
+
+[connection signal="text_changed" from="Menu/UserInfo/UsernameEdit" to="." method="_on_text_changed"]
+[connection signal="pressed" from="Menu/ButtonContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="text_changed" from="Menu/ButtonContainer/IPAddressEdit" to="." method="_on_text_changed"]
+[connection signal="pressed" from="Menu/ButtonContainer/ClientButton" to="." method="_on_client_button_pressed"]

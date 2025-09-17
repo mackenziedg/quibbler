@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://duc8ms1j6mwon"]
+[gd_scene load_steps=6 format=3 uid="uid://duc8ms1j6mwon"]
 
 [ext_resource type="Script" uid="uid://b8eah33fhpkl5" path="res://Game/Lobby/Lobby.gd" id="1_06f2m"]
+[ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="2_7a8p8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06f2m"]
 bg_color = Color(0, 0.6, 0.85882354, 1)
@@ -28,56 +29,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aiidj"]
-content_margin_left = 24.0
-content_margin_top = 12.0
-content_margin_right = 24.0
-content_margin_bottom = 12.0
-bg_color = Color(0.9647059, 0.45882353, 0.47843137, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie6wa"]
-content_margin_left = 24.0
-content_margin_top = 12.0
-content_margin_right = 24.0
-content_margin_bottom = 12.0
-bg_color = Color(0.9647059, 0.45882353, 0.47843137, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.9647059, 0.45882353, 0.47843137, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kws4"]
-content_margin_left = 24.0
-content_margin_top = 12.0
-content_margin_right = 24.0
-content_margin_bottom = 12.0
-bg_color = Color(0.7529412, 0.79607844, 0.8627451, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06f2m"]
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -151,15 +102,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.54509807, 0.60784316, 0.7058824, 1)
-theme_override_constants/outline_size = 18
-theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxFlat_aiidj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ie6wa")
-theme_override_styles/hover = SubResource("StyleBoxFlat_aiidj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_4kws4")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_06f2m")
+theme = ExtResource("2_7a8p8")
 disabled = true
 text = "Create Room"
 
@@ -190,16 +133,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 5
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.54509807, 0.60784316, 0.7058824, 1)
-theme_override_colors/font_outline_color = Color(0.054545455, 0.057670455, 0.0625, 1)
-theme_override_constants/outline_size = 18
-theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxFlat_aiidj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ie6wa")
-theme_override_styles/hover = SubResource("StyleBoxFlat_aiidj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_4kws4")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_06f2m")
+theme = ExtResource("2_7a8p8")
 disabled = true
 text = "Connect to Room"
 

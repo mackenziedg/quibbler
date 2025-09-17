@@ -43,7 +43,7 @@ func start_game() -> void:
         var letter := CardData.draw_card()
         _game.add_card(letter)
     _game.start_game()
-    %StartButton.queue_free()
+    %WaitToStartContainer.queue_free()
 
 
 @rpc("authority", "call_local", "reliable")
@@ -158,8 +158,10 @@ func _ready() -> void:
         "rounds_won": 0,
         "round_id": 0,
     })
-    %StartButton.visible = is_multiplayer_authority()
-    %StartButton.disabled = not is_multiplayer_authority()
+    if is_multiplayer_authority():
+        %WaitingLabel.text = "Press Start when everyone has joined."
+        %StartButton.visible = true
+        %StartButton.disabled = false
 
 
 func _on_player_connected(id: int) -> void:

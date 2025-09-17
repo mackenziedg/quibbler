@@ -60,7 +60,7 @@ const _CARD_POINTS := [
 12, # Z
 ]
 
-@onready var valid_words: PackedStringArray = FileAccess.get_file_as_string("res://Game/Game/assets/data/dictionary_en.txt").split("\n")
+@onready var valid_words: PackedStringArray = FileAccess.get_file_as_string("res://Game/Game/assets/data/dictionary_en.wordlist").split("\n")
 
 
 func score_word(word: String) -> int:

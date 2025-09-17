@@ -53,3 +53,6 @@ text = "Host"
 [node name="ClientButton" type="Button" parent="Menu"]
 layout_mode = 2
 text = "Connect"
+
+[connection signal="pressed" from="Menu/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Menu/ClientButton" to="." method="_on_client_button_pressed"]

@@ -1,11 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://cthvlothu3xns"]
+[gd_scene load_steps=8 format=3 uid="uid://cthvlothu3xns"]
 
 [ext_resource type="Script" uid="uid://cklw46qoemb3d" path="res://Game/Game/game.gd" id="1_qtw4q"]
-[ext_resource type="FontFile" uid="uid://bqelt1bh8mmnv" path="res://Game/Game/assets/fonts/Helvetica-LT-65-Medium.ttf" id="2_2r57w"]
+[ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="3_774ph"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_qtw4q"]
-font = ExtResource("2_2r57w")
-font_size = 65
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_774ph"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2r57w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw1fx"]
+bg_color = Color(0.89411765, 0.6509804, 0.44705883, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8rxu"]
+bg_color = Color(0.89411765, 0.6509804, 0.44705883, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="Theme" id="Theme_2r57w"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 8
+Button/font_sizes/font_size = 24
+Button/styles/focus = SubResource("StyleBoxEmpty_2r57w")
+Button/styles/hover = SubResource("StyleBoxFlat_bw1fx")
+Button/styles/normal = SubResource("StyleBoxFlat_bw1fx")
+Button/styles/pressed = SubResource("StyleBoxFlat_e8rxu")
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -42,17 +92,166 @@ offset_bottom = 298.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
+alignment = 1
 
-[node name="RoundScoreLabel" type="Label" parent="CardsSuperContainer"]
-unique_name_in_owner = true
+[node name="RoundScoreGrid" type="GridContainer" parent="CardsSuperContainer"]
+clip_contents = true
 layout_mode = 2
-text = "123 - 345 - 27 = 0"
-label_settings = SubResource("LabelSettings_qtw4q")
+size_flags_horizontal = 4
+size_flags_vertical = 3
+columns = 7
+
+[node name="Label" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Words"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Unused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "2 x Drawn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "="
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Round Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WordScoreLabel" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label9" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeftoverPenaltyLabel" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "456"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label11" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DrawPenaltyLabel" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "14"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label13" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "="
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TotalScoreLabel" type="Label" parent="CardsSuperContainer/RoundScoreGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "1,000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WordContainerPanel" type="PanelContainer" parent="CardsSuperContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_774ph")
 
 [node name="WordContainer" type="HFlowContainer" parent="CardsSuperContainer/WordContainerPanel"]
 unique_name_in_owner = true
@@ -65,7 +264,7 @@ last_wrap_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("3_774ph")
 disabled = true
 text = "Submit Word"
 
@@ -76,27 +275,34 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme = SubResource("Theme_2r57w")
+theme_override_constants/separation = 12
+alignment = 2
 
 [node name="ShuffleSortButton" type="Button" parent="CardsSuperContainer/BottomContainer/SortButtons"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-text = "Shuffle"
+text = "?!"
 
 [node name="AZSortButton" type="Button" parent="CardsSuperContainer/BottomContainer/SortButtons"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-text = "A-Z"
+text = "A→Z"
 
 [node name="PointsSortButton" type="Button" parent="CardsSuperContainer/BottomContainer/SortButtons"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-text = "Points"
+text = "0→9"
 
 [node name="HandContainerPanel" type="PanelContainer" parent="CardsSuperContainer/BottomContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_774ph")
 
 [node name="HandContainer" type="HFlowContainer" parent="CardsSuperContainer/BottomContainer/HandContainerPanel"]
 unique_name_in_owner = true
@@ -105,41 +311,37 @@ layout_mode = 2
 size_flags_vertical = 6
 last_wrap_alignment = 1
 
-[node name="DrawButton" type="Button" parent="."]
-unique_name_in_owner = true
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -96.0
-offset_right = 172.0
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
-text = "Draw
-"
-
-[node name="EndTurnButton" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -286.0
 offset_top = -96.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("3_774ph")
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="DrawButton" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Draw Card"
+
+[node name="EndTurnButton" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-theme_override_font_sizes/font_size = 64
 text = "End Turn"
 
 [connection signal="pressed" from="CardsSuperContainer/SubmitWordButton" to="." method="_on_submit_word_button_pressed"]
 [connection signal="pressed" from="CardsSuperContainer/BottomContainer/SortButtons/ShuffleSortButton" to="." method="_on_shuffle_sort_button_pressed"]
 [connection signal="pressed" from="CardsSuperContainer/BottomContainer/SortButtons/AZSortButton" to="." method="_on_az_sort_button_pressed"]
 [connection signal="pressed" from="CardsSuperContainer/BottomContainer/SortButtons/PointsSortButton" to="." method="_on_points_sort_button_pressed"]
-[connection signal="pressed" from="DrawButton" to="." method="_on_draw_button_pressed"]
-[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="MarginContainer/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="MarginContainer/EndTurnButton" to="." method="_on_end_turn_button_pressed"]

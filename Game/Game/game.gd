@@ -6,7 +6,6 @@ signal end_turn(total_score: int)
 
 @onready var _draw_button: Button = %DrawButton
 @onready var _end_turn_button: Button = %EndTurnButton
-@onready var _round_score_label: Label = %RoundScoreLabel
 @onready var _hand_container: HFlowContainer = %HandContainer
 @onready var _word_container: HFlowContainer = %WordContainer
 @onready var _submit_word_button: Button = %SubmitWordButton
@@ -18,7 +17,7 @@ var words: Array[String] = []
 
 func start_game() -> void:
     visible = true
-    _update_round_score_label()
+    _update_round_score_labels()
 
 
 func add_card(letter: String) -> void:
@@ -38,7 +37,7 @@ func clear_board() -> void:
         c.queue_free()
     _draw_button.disabled = false
     _end_turn_button.disabled = false
-    _update_round_score_label()
+    _update_round_score_labels()
 
 
 func _process(_delta: float) -> void:
@@ -79,8 +78,11 @@ func _total_score() -> int:
     return word_score - letter_penalty - draw_penalty
 
 
-func _update_round_score_label() -> void:
-    _round_score_label.text = "%d - %d - %d = %d" % [_word_score(), _letter_penalty(), _draw_penalty(), _total_score()]
+func _update_round_score_labels() -> void:
+    %WordScoreLabel.text = str(_word_score())
+    %LeftoverPenaltyLabel.text = str(_letter_penalty())
+    %DrawPenaltyLabel.text = str(_draw_penalty())
+    %TotalScoreLabel.text = str(_total_score())
 
 
 func _get_word() -> String:
@@ -93,7 +95,7 @@ func _get_word() -> String:
 func _update_word_status() -> void:
     var word := _get_word()
     _submit_word_button.disabled = not CardData.valid_words.has(word)
-    _update_round_score_label()
+    _update_round_score_labels()
 
 
 func _get_selected_card() -> Card:
@@ -127,7 +129,7 @@ func _sort_letters(by: String) -> void:
 func _on_draw_button_pressed() -> void:
     draw_card.emit()
     _drawn += 2
-    _update_round_score_label()
+    _update_round_score_labels()
 
 
 func _on_end_turn_button_pressed() -> void:
@@ -143,7 +145,7 @@ func _on_submit_word_button_pressed() -> void:
     _submit_word_button.disabled = true
     for c in _word_container.get_children():
         c.queue_free()
-    _update_round_score_label()
+    _update_round_score_labels()
 
 
 func _on_shuffle_sort_button_pressed() -> void:

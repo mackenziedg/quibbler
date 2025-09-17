@@ -24,7 +24,7 @@ func start_game(is_hosting: bool) -> void:
     if OS.is_debug_build() and OS.has_feature("autostart"):
         username = OS.get_cmdline_args()[3]
         color = Color(OS.get_cmdline_args()[4])
-    
+
     var ip := _ip_addr_edit.text
     var peer := ENetMultiplayerPeer.new()
     if is_hosting:

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqulto7dh603m"]
+[gd_scene load_steps=9 format=3 uid="uid://dqulto7dh603m"]
 
 [ext_resource type="Script" uid="uid://dy8u7c0iptdc7" path="res://Game/GameMultiplayerManager/GameMultiplayerManager.gd" id="1_b54r1"]
 [ext_resource type="PackedScene" uid="uid://cthvlothu3xns" path="res://Game/Game/Game.tscn" id="2_xwe6p"]
 [ext_resource type="Shader" uid="uid://c1byfyawjn0er" path="res://Game/GameMultiplayerManager/waiting_to_start_shader.gdshader" id="3_lv0co"]
 [ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="3_odiqh"]
 [ext_resource type="PackedScene" uid="uid://btn0ymh0g1p48" path="res://Game/Game/RoundOverScreen.tscn" id="3_s3r1r"]
+[ext_resource type="Theme" uid="uid://ctil2r685jdhw" path="res://Game/GameMultiplayerManager/player_info_label_theme.tres" id="5_ho6pe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ho6pe"]
 shader = ExtResource("3_lv0co")
@@ -79,32 +80,21 @@ theme_override_font_sizes/font_size = 64
 disabled = true
 text = "Start"
 
-[node name="TopBarContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 31.0
-grow_horizontal = 2
-
-[node name="PlayerIdentifier" type="Label" parent="TopBarContainer"]
+[node name="PlayerIdentifier" type="Label" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.5
+offset_top = -23.0
+offset_right = 79.5
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_horizontal = 4
 text = "Player N - Username"
-
-[node name="PlayerNames" type="HBoxContainer" parent="TopBarContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="RoundsWonContainer" type="HBoxContainer" parent="TopBarContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
 
 [node name="RoundOverScreen" parent="." instance=ExtResource("3_s3r1r")]
 unique_name_in_owner = true
@@ -117,6 +107,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 0.0
 offset_bottom = 0.0
+
+[node name="TopBarContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+
+[node name="PlayerNamesSmall" type="GridContainer" parent="TopBarContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_ho6pe")
+columns = 4
+
+[node name="PlayerNamesExpanded" type="GridContainer" parent="TopBarContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_ho6pe")
+columns = 4
 
 [connection signal="draw_card" from="GameContainer/Game" to="." method="_on_game_draw_card"]
 [connection signal="end_turn" from="GameContainer/Game" to="." method="_on_game_end_turn"]

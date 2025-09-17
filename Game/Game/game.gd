@@ -27,7 +27,7 @@ func add_card(letter: String) -> void:
     card.letter = letter
     _remaining_tiles.push_back(letter)
 
-    
+
 func clear_board() -> void:
     words.clear()
     _remaining_tiles.clear()
@@ -39,7 +39,7 @@ func clear_board() -> void:
     _draw_button.disabled = false
     _end_turn_button.disabled = false
     _update_round_score_label()
-    
+
 
 func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("drag_card"):
@@ -106,7 +106,7 @@ func _get_selected_card() -> Card:
             return c
     return null
 
-    
+
 func _sort_letters(by: String) -> void:
     if _hand_container.get_child_count() < 2:
         return
@@ -122,7 +122,7 @@ func _sort_letters(by: String) -> void:
             if sort_fn.call(_hand_container.get_child(i)) <= sort_fn.call(_hand_container.get_child(j)):
                 _hand_container.move_child(_hand_container.get_child(i), j)
         sorted_ix += 1
-        
+
 
 func _on_draw_button_pressed() -> void:
     draw_card.emit()

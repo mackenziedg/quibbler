@@ -4,8 +4,8 @@ extends Control
 const STARTING_HAND_SIZE: int = 5
 
 @onready var _multiplayer_id := multiplayer.get_unique_id()
-@onready var _player_names_container: HBoxContainer = %PlayerNames
-@onready var _rounds_won_container: HBoxContainer = %RoundsWonContainer
+@onready var _player_names_container: GridContainer = %PlayerNamesSmall
+@onready var _player_names_large_container: GridContainer = %PlayerNamesExpanded
 @onready var _round_over_screen: RoundOverScreen = %RoundOverScreen
 @onready var _game: Game = %Game
 
@@ -35,10 +35,6 @@ func update_client_player_info(info: Array) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func start_game() -> void:
-    for s in range(_player_info.size()):
-        var score_label := Label.new()
-        _rounds_won_container.add_child(score_label)
-        score_label.text = "0"
     for _i in range(STARTING_HAND_SIZE):
         var letter := CardData.draw_card()
         _game.add_card(letter)
@@ -83,8 +79,6 @@ func end_round() -> void:
             winner_ix = i
             winning_score = _player_info[i]["total_score"]
     _player_info[winner_ix]["rounds_won"] += 1
-    for i in range(_player_info.size()):
-        _rounds_won_container.get_child(i).text = str(_player_info[i]["rounds_won"])
     %RoundOverScreen.visible = true
     var round_over_text := ["%s won!" % [_player_info[winner_ix]["username"]]]
     for p in _player_info:
@@ -93,11 +87,15 @@ func end_round() -> void:
     for ix in range(_player_info.size()):
         _player_info[ix]["ready_round_end"] = false
     _ready_count = 0
+    _player_names_container.visible = false
+    _player_names_large_container.visible = true
 
 
 @rpc("authority", "call_local", "reliable")
 func next_round() -> void:
     await get_tree().create_timer(1.0).timeout
+    _player_names_container.visible = true
+    _player_names_large_container.visible = false
     _round_over_screen.visible = false
     _game.clear_board()
     for _i in range(STARTING_HAND_SIZE):
@@ -132,23 +130,31 @@ func _get_player_index(id: int) -> int:
 func _update_player_name_labels() -> void:
     for child in _player_names_container.get_children():
         child.queue_free()
+    for child in _player_names_large_container.get_children():
+        child.queue_free()
 
     for info in _player_info:
-        _player_names_container.add_child(_create_player_name_label(info))
+        _player_names_container.add_child(_create_player_name_label(info, false))
+        _player_names_large_container.add_child(_create_player_name_label(info, true))
 
 
-func _create_player_name_label(info: Dictionary) -> Label:
+func _create_player_name_label(info: Dictionary, expanded: bool) -> Label:
     var label := Label.new()
-    label.label_settings = LabelSettings.new()
-    label.text = ("✓ " if info["ready_round_end"] else "") + info["username"]
+    label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    label.label_settings = preload("res://Game/GameMultiplayerManager/player_info_label_settings.tres").duplicate()
     label.label_settings.font_color = info["color"]
+    label.text = ("✓ " if info["ready_round_end"] else "") + info["username"]
+    if expanded:
+        label.text += "\nRounds: %d\nScore: %d" % [info["rounds_won"], info["total_score"]]
     return label
 
 
 func _ready() -> void:
     multiplayer.peer_connected.connect(_on_player_connected)
     multiplayer.peer_disconnected.connect(_on_player_disconnected)
-    %PlayerIdentifier.text = "Player %d - %s" % [_multiplayer_id, username]
+    if OS.is_debug_build():
+        %PlayerIdentifier.text = "Player %d - %s" % [_multiplayer_id, username]
+        %PlayerIdentifier.visible = true
     _player_info.push_back({
         "id": _multiplayer_id,
         "username": username,
@@ -163,6 +169,13 @@ func _ready() -> void:
         %StartButton.visible = true
         %StartButton.disabled = false
 
+    
+func _process(_delta: float) -> void:
+    if Input.is_action_just_pressed("drag_card"):
+        if %TopBarContainer.get_global_rect().has_point(get_global_mouse_position()):
+            _player_names_container.visible = not _player_names_container.visible
+            _player_names_large_container.visible = not _player_names_large_container.visible
+    
 
 func _on_player_connected(id: int) -> void:
     if not is_multiplayer_authority():

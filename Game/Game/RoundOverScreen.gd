@@ -3,17 +3,11 @@ extends Control
 
 signal ready_round_end
 
-var winners: Array[int] = []
+var winner: String = ""
 
 
 func _ready() -> void:
-    var is_plural := winners.size() > 1
-    var win_string: String = "Player"
-    if is_plural:
-        win_string += "s"
-    var win_labels := " and ".join(winners.map(func (v): return str(v)))
-
-    %WinnerLabel.text = "%s %s won!" % [win_string, win_labels]
+    %WinnerLabel.text = "%s won!" % winner
 
 
 func allow_continue() -> void:

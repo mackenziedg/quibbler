@@ -5,7 +5,7 @@ const STARTING_HAND_SIZE: int = 5
 
 @onready var _multiplayer_id := multiplayer.get_unique_id()
 @onready var _player_names_container: HBoxContainer = %PlayerNames
-@onready var _total_scores_container: HBoxContainer = %TotalScoresContainer
+@onready var _rounds_won_container: HBoxContainer = %RoundsWonContainer
 @onready var _game: Game = %Game
 
 var username := "username"
@@ -36,7 +36,7 @@ func update_client_player_info(info: Array) -> void:
 func start_game() -> void:
     for s in range(_player_info.size()):
         var score_label := Label.new()
-        _total_scores_container.add_child(score_label)
+        _rounds_won_container.add_child(score_label)
         score_label.text = "0"
     for _i in range(STARTING_HAND_SIZE):
         var letter := CardData.draw_card()
@@ -75,8 +75,15 @@ func end_turn(id: int, total_score: int) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func end_round() -> void:
+    var winner_ix := -1
+    var winning_score := -INF
     for i in range(_player_info.size()):
-        _total_scores_container.get_child(i).text = str(_player_info[i]["total_score"])
+        if _player_info[i]["total_score"] > winning_score:
+            winner_ix = i
+            winning_score = _player_info[i]["total_score"]
+    _player_info[winner_ix]["rounds_won"] += 1
+    for i in range(_player_info.size()):
+        _rounds_won_container.get_child(i).text = str(_player_info[i]["rounds_won"])
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -126,6 +133,7 @@ func _ready() -> void:
         "color": color,
         "ready_round_end": false,
         "total_score": 0,
+        "rounds_won": 0,
         "round_id": 0,
     })
     %StartButton.visible = is_multiplayer_authority()

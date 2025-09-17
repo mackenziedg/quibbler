@@ -69,10 +69,36 @@ theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Submit Word"
 
-[node name="HandContainerPanel" type="PanelContainer" parent="CardsSuperContainer"]
+[node name="BottomContainer" type="VBoxContainer" parent="CardsSuperContainer"]
 layout_mode = 2
 
-[node name="HandContainer" type="HFlowContainer" parent="CardsSuperContainer/HandContainerPanel"]
+[node name="SortButtons" type="HBoxContainer" parent="CardsSuperContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="ShuffleSortButton" type="Button" parent="CardsSuperContainer/BottomContainer/SortButtons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Shuffle"
+
+[node name="AZSortButton" type="Button" parent="CardsSuperContainer/BottomContainer/SortButtons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "A-Z"
+
+[node name="PointsSortButton" type="Button" parent="CardsSuperContainer/BottomContainer/SortButtons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Points"
+
+[node name="HandContainerPanel" type="PanelContainer" parent="CardsSuperContainer/BottomContainer"]
+layout_mode = 2
+
+[node name="HandContainer" type="HFlowContainer" parent="CardsSuperContainer/BottomContainer/HandContainerPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 276)
 layout_mode = 2
@@ -112,5 +138,8 @@ theme_override_font_sizes/font_size = 64
 text = "End Turn"
 
 [connection signal="pressed" from="CardsSuperContainer/SubmitWordButton" to="." method="_on_submit_word_button_pressed"]
+[connection signal="pressed" from="CardsSuperContainer/BottomContainer/SortButtons/ShuffleSortButton" to="." method="_on_shuffle_sort_button_pressed"]
+[connection signal="pressed" from="CardsSuperContainer/BottomContainer/SortButtons/AZSortButton" to="." method="_on_az_sort_button_pressed"]
+[connection signal="pressed" from="CardsSuperContainer/BottomContainer/SortButtons/PointsSortButton" to="." method="_on_points_sort_button_pressed"]
 [connection signal="pressed" from="DrawButton" to="." method="_on_draw_button_pressed"]
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

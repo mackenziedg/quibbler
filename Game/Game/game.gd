@@ -106,6 +106,23 @@ func _get_selected_card() -> Card:
             return c
     return null
 
+    
+func _sort_letters(by: String) -> void:
+    if _hand_container.get_child_count() < 2:
+        return
+    var sort_fn := func (card): return card.letter
+    if by == "shuffle":
+        sort_fn = func (_card): return randi_range(0, _hand_container.get_child_count())
+    elif by == "points":
+        sort_fn = func (card): return CardData.points(card.letter)
+    # Insertion sort! DSA finally used in the wild
+    var sorted_ix := 1
+    for i in range(1, _hand_container.get_child_count()):
+        for j in range(0, sorted_ix):
+            if sort_fn.call(_hand_container.get_child(i)) <= sort_fn.call(_hand_container.get_child(j)):
+                _hand_container.move_child(_hand_container.get_child(i), j)
+        sorted_ix += 1
+        
 
 func _on_draw_button_pressed() -> void:
     draw_card.emit()
@@ -127,3 +144,15 @@ func _on_submit_word_button_pressed() -> void:
     for c in _word_container.get_children():
         c.queue_free()
     _update_round_score_label()
+
+
+func _on_shuffle_sort_button_pressed() -> void:
+    _sort_letters("shuffle")
+
+
+func _on_az_sort_button_pressed() -> void:
+    _sort_letters("default")
+
+
+func _on_points_sort_button_pressed() -> void:
+    _sort_letters("points")

@@ -12,11 +12,13 @@ signal end_turn(total_score: int)
 
 var _drawn := 0
 var _remaining_tiles: Array[String] = []
+var _between_rounds := true
 var words: Array[String] = []
 
 
 func start_game() -> void:
     visible = true
+    _between_rounds = false
     _update_round_score_labels()
 
 
@@ -37,10 +39,13 @@ func clear_board() -> void:
         c.queue_free()
     _draw_button.disabled = false
     _end_turn_button.disabled = false
+    _between_rounds = false
     _update_round_score_labels()
 
 
 func _process(_delta: float) -> void:
+    if _between_rounds:
+        return
     if Input.is_action_just_pressed("drag_card"):
         var card: Card = _get_selected_card()
         if card:
@@ -138,6 +143,7 @@ func _on_draw_button_pressed() -> void:
 func _on_end_turn_button_pressed() -> void:
     _draw_button.disabled = true
     _end_turn_button.disabled = true
+    _between_rounds = true
     end_turn.emit(_total_score())
 
 

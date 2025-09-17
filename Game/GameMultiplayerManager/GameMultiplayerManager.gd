@@ -58,12 +58,13 @@ func draw_card(id: int) -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func end_turn(id: int, total_score: int) -> void:
+func end_turn(id: int, last_round_score: int) -> void:
     if not is_multiplayer_authority():
         return
     var ready_player_ix := _get_player_index(id)
     _player_info[ready_player_ix]["ready_round_end"] = true
-    _player_info[ready_player_ix]["total_score"] = total_score
+    _player_info[ready_player_ix]["last_round_score"] = last_round_score
+    _player_info[ready_player_ix]["total_score"] += last_round_score
     update_client_player_info.rpc(_player_info)
     for p in _player_info:
         if not p["ready_round_end"]:
@@ -77,15 +78,12 @@ func end_round() -> void:
     var winner_ix := -1
     var winning_score := -INF
     for i in range(_player_info.size()):
-        if _player_info[i]["total_score"] > winning_score:
+        if _player_info[i]["last_round_score"] > winning_score:
             winner_ix = i
-            winning_score = _player_info[i]["total_score"]
+            winning_score = _player_info[i]["last_round_score"]
     _player_info[winner_ix]["rounds_won"] += 1
     %RoundOverScreen.visible = true
-    var round_over_text := ["%s won!" % [_player_info[winner_ix]["username"]]]
-    for p in _player_info:
-        round_over_text.push_back("%s: %d" % [p["username"], p["total_score"]])
-    %RoundOverScreen.setup("\n".join(round_over_text))
+    %RoundOverScreen.setup(_player_info)
     for ix in range(_player_info.size()):
         _player_info[ix]["ready_round_end"] = false
     _ready_count = 0
@@ -163,6 +161,7 @@ func _ready() -> void:
         "color": color,
         "ready_round_end": false,
         "total_score": 0,
+        "last_round_score": 0,
         "rounds_won": 0,
         "round_id": 0,
     })
@@ -205,8 +204,8 @@ func _on_game_draw_card() -> void:
     draw_card.rpc(_multiplayer_id)
 
 
-func _on_game_end_turn(total_score: int) -> void:
-    end_turn.rpc(_multiplayer_id, total_score)
+func _on_game_end_turn(last_round_score: int) -> void:
+    end_turn.rpc(_multiplayer_id, last_round_score)
 
 
 func _on_round_over_screen_ready_round_end() -> void:

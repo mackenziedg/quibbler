@@ -1,17 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://btn0ymh0g1p48"]
+[gd_scene load_steps=7 format=3 uid="uid://btn0ymh0g1p48"]
 
+[ext_resource type="Shader" uid="uid://c1byfyawjn0er" path="res://Game/GameMultiplayerManager/waiting_to_start_shader.gdshader" id="1_tmycj"]
 [ext_resource type="Script" uid="uid://dili6ldlqs7q3" path="res://Game/Game/RoundOverScreen.gd" id="1_x5kxk"]
+[ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="3_lknpm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lknpm"]
+shader = ExtResource("1_tmycj")
+shader_parameter/blur_amount = 2.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ud8gt"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lknpm"]
+font_size = 56
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(4, 4)
 
 [node name="RoundOverScreen" type="PanelContainer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 197.0
-offset_bottom = 167.0
+material = SubResource("ShaderMaterial_lknpm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ud8gt")
 script = ExtResource("1_x5kxk")
 
 [node name="Menu" type="VBoxContainer" parent="."]
@@ -21,17 +36,26 @@ alignment = 1
 [node name="WinnerLabel" type="Label" parent="Menu"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 48
-text = "Player whatever won
-Player 1: 100
-Player 2: 250"
+text = "Player whatever won!"
+label_settings = SubResource("LabelSettings_lknpm")
 horizontal_alignment = 1
+
+[node name="PlayerScores" type="GridContainer" parent="Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 99
+columns = 2
 
 [node name="ContinueButton" type="Button" parent="Menu"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 64
+size_flags_vertical = 4
+theme = ExtResource("3_lknpm")
 disabled = true
 text = "Ready"
 

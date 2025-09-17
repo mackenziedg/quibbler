@@ -14,6 +14,7 @@ var color := Color.WHITE
 
 var _player_info: Array[Dictionary] = []
 var _ready_count := 0
+var _is_game_started := false
 
 
 @rpc("authority", "call_remote", "reliable")
@@ -40,6 +41,7 @@ func start_game() -> void:
         _game.add_card(letter)
     _game.start_game()
     %WaitToStartContainer.queue_free()
+    _is_game_started = true
 
 
 @rpc("authority", "call_local", "reliable")
@@ -180,12 +182,19 @@ func _process(_delta: float) -> void:
 func _on_player_connected(id: int) -> void:
     if not is_multiplayer_authority():
         return
+    if _is_game_started:
+        # TODO: Implement better logic for this
+        print("Player tried to join in the middle of a game!")
+        return
     print("[%d]: Player %d connected" % [_multiplayer_id, id])
     send_player_info.rpc_id(id, _multiplayer_id)
 
 
 func _on_player_disconnected(id: int) -> void:
     print("[%d]: Player %d disconnected" % [_multiplayer_id, id])
+    var _player_index := _get_player_index(id)
+    _player_info.remove_at(_player_index)
+    update_client_player_info.rpc(_player_info)
 
 
 func _on_start_button_pressed() -> void:

@@ -72,7 +72,7 @@ func end_turn(id: int, total_score: int) -> void:
     end_round.rpc()
     print("Round over!")
 
-    
+
 @rpc("authority", "call_local", "reliable")
 func end_round() -> void:
     for i in range(_player_info.size()):

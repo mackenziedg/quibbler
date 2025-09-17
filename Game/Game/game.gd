@@ -6,22 +6,26 @@ signal end_turn(total_score: int)
 
 @onready var _draw_button: Button = %DrawButton
 @onready var _end_turn_button: Button = %EndTurnButton
+@onready var _round_score_label: Label = %RoundScoreLabel
 @onready var _hand_container: HFlowContainer = %HandContainer
 @onready var _word_container: HFlowContainer = %WordContainer
 @onready var _submit_word_button: Button = %SubmitWordButton
 
 var _drawn := 0
+var _remaining_tiles: Array[String] = []
 var words: Array[String] = []
 
 
 func start_game() -> void:
     visible = true
+    _update_round_score_label()
 
 
 func add_card(letter: String) -> void:
     var card: Card = preload("res://Game/Game/UI/Card/card.tscn").instantiate()
     _hand_container.add_child(card)
     card.letter = letter
+    _remaining_tiles.push_back(letter)
 
 
 func _process(_delta: float) -> void:
@@ -37,17 +41,33 @@ func _process(_delta: float) -> void:
             _update_word_status()
 
 
-func _total_score() -> int:
-    var word_score: int = 0
-    var letter_penalty: int = 0
-    var draw_penalty: int = 0
+func _word_score() -> int:
+    var word_score := 0
     for word in words:
         word_score += CardData.score_word(word)
-    for card: Card in _hand_container.get_children():
-        letter_penalty += CardData.points(card.letter)
-    draw_penalty = _drawn
+    return word_score
 
+
+func _letter_penalty() -> int:
+    var letter_penalty := 0
+    for letter in _remaining_tiles:
+        letter_penalty += CardData.points(letter)
+    return letter_penalty
+
+
+func _draw_penalty() -> int:
+    return _drawn
+
+
+func _total_score() -> int:
+    var word_score := _word_score()
+    var letter_penalty := _letter_penalty()
+    var draw_penalty := _draw_penalty()
     return word_score - letter_penalty - draw_penalty
+
+
+func _update_round_score_label() -> void:
+    _round_score_label.text = "%d - %d - %d = %d" % [_word_score(), _letter_penalty(), _draw_penalty(), _total_score()]
 
 
 func _get_word() -> String:
@@ -60,6 +80,7 @@ func _get_word() -> String:
 func _update_word_status() -> void:
     var word := _get_word()
     _submit_word_button.disabled = not CardData.valid_words.has(word)
+    _update_round_score_label()
 
 
 func _get_selected_card() -> Card:
@@ -75,7 +96,8 @@ func _get_selected_card() -> Card:
 
 func _on_draw_button_pressed() -> void:
     draw_card.emit()
-    _drawn += 1
+    _drawn += 2
+    _update_round_score_label()
 
 
 func _on_end_turn_button_pressed() -> void:
@@ -86,5 +108,9 @@ func _on_end_turn_button_pressed() -> void:
 
 func _on_submit_word_button_pressed() -> void:
     words.push_back(_get_word())
+    for letter in _get_word():
+        _remaining_tiles.erase(letter)
+    _submit_word_button.disabled = true
     for c in _word_container.get_children():
         c.queue_free()
+    _update_round_score_label()

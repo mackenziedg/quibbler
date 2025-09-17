@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cthvlothu3xns"]
+[gd_scene load_steps=4 format=3 uid="uid://cthvlothu3xns"]
 
 [ext_resource type="Script" uid="uid://cklw46qoemb3d" path="res://Game/Game/game.gd" id="1_qtw4q"]
+[ext_resource type="FontFile" uid="uid://bqelt1bh8mmnv" path="res://Game/Game/assets/fonts/Helvetica-LT-65-Medium.ttf" id="2_2r57w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qtw4q"]
+font = ExtResource("2_2r57w")
+font_size = 65
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -37,6 +42,14 @@ offset_bottom = 298.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 32
+
+[node name="RoundScoreLabel" type="Label" parent="CardsSuperContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "123 - 345 - 27 = 0"
+label_settings = SubResource("LabelSettings_qtw4q")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="WordContainerPanel" type="PanelContainer" parent="CardsSuperContainer"]
 layout_mode = 2

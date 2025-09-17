@@ -2,39 +2,36 @@
 
 [ext_resource type="Script" uid="uid://dili6ldlqs7q3" path="res://Game/Game/RoundOverScreen.gd" id="1_x5kxk"]
 
-[node name="RoundOverScreen" type="Control"]
-layout_mode = 3
+[node name="RoundOverScreen" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_right = 197.0
+offset_bottom = 167.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x5kxk")
 
 [node name="Menu" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -29.0
-offset_right = 28.0
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+alignment = 1
 
 [node name="WinnerLabel" type="Label" parent="Menu"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
+text = "Player whatever won
+Player 1: 100
+Player 2: 250"
+horizontal_alignment = 1
 
 [node name="ContinueButton" type="Button" parent="Menu"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
 disabled = true
 text = "Ready"
 

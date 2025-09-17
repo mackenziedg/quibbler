@@ -6,6 +6,7 @@ const STARTING_HAND_SIZE: int = 5
 @onready var _multiplayer_id := multiplayer.get_unique_id()
 @onready var _player_names_container: HBoxContainer = %PlayerNames
 @onready var _rounds_won_container: HBoxContainer = %RoundsWonContainer
+@onready var _round_over_screen: RoundOverScreen = %RoundOverScreen
 @onready var _game: Game = %Game
 
 var username := "username"
@@ -84,18 +85,39 @@ func end_round() -> void:
     _player_info[winner_ix]["rounds_won"] += 1
     for i in range(_player_info.size()):
         _rounds_won_container.get_child(i).text = str(_player_info[i]["rounds_won"])
+    %RoundOverScreen.visible = true
+    var round_over_text := ["%s won!" % [_player_info[winner_ix]["username"]]]
+    for p in _player_info:
+        round_over_text.push_back("%s: %d" % [p["username"], p["total_score"]])
+    %RoundOverScreen.setup("\n".join(round_over_text))
+    for ix in range(_player_info.size()):
+        _player_info[ix]["ready_round_end"] = false
+    _ready_count = 0
+
+
+@rpc("authority", "call_local", "reliable")
+func next_round() -> void:
+    await get_tree().create_timer(1.0).timeout
+    _round_over_screen.visible = false
+    _game.clear_board()
+    for _i in range(STARTING_HAND_SIZE):
+        var letter := CardData.draw_card()
+        _game.add_card(letter)
 
 
 @rpc("any_peer", "call_local", "reliable")
-func ready_player() -> void:
+func ready_player(id: int) -> void:
     if not is_multiplayer_authority():
         return
+    var ready_player_ix := _get_player_index(id)
+    _round_over_screen.set_ready.rpc(ready_player_ix)
     _ready_count += 1
     if _ready_count == _player_info.size():
         _ready_count = 0
         for i in range(_player_info.size()):
             _player_info[i]["round_id"] += 1
         update_client_player_info.rpc(_player_info)
+        next_round.rpc()
 
 
 func _get_player_index(id: int) -> int:
@@ -161,3 +183,7 @@ func _on_game_draw_card() -> void:
 
 func _on_game_end_turn(total_score: int) -> void:
     end_turn.rpc(_multiplayer_id, total_score)
+
+
+func _on_round_over_screen_ready_round_end() -> void:
+    ready_player.rpc(_multiplayer_id)

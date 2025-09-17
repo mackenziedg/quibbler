@@ -27,6 +27,19 @@ func add_card(letter: String) -> void:
     card.letter = letter
     _remaining_tiles.push_back(letter)
 
+    
+func clear_board() -> void:
+    words.clear()
+    _remaining_tiles.clear()
+    _drawn = 0
+    for c in _word_container.get_children():
+        c.queue_free()
+    for c in _hand_container.get_children():
+        c.queue_free()
+    _draw_button.disabled = false
+    _end_turn_button.disabled = false
+    _update_round_score_label()
+    
 
 func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("drag_card"):

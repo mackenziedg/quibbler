@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqulto7dh603m"]
+[gd_scene load_steps=4 format=3 uid="uid://dqulto7dh603m"]
 
 [ext_resource type="Script" uid="uid://dy8u7c0iptdc7" path="res://Game/GameMultiplayerManager/GameMultiplayerManager.gd" id="1_b54r1"]
 [ext_resource type="PackedScene" uid="uid://cthvlothu3xns" path="res://Game/Game/Game.tscn" id="2_xwe6p"]
+[ext_resource type="PackedScene" uid="uid://btn0ymh0g1p48" path="res://Game/Game/RoundOverScreen.tscn" id="3_s3r1r"]
 
 [node name="GameMultiplayerManager" type="Control"]
 layout_mode = 3
@@ -80,6 +81,19 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 64
 text = "Start"
 
+[node name="RoundOverScreen" parent="." instance=ExtResource("3_s3r1r")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+
 [connection signal="draw_card" from="GameContainer/Game" to="." method="_on_game_draw_card"]
 [connection signal="end_turn" from="GameContainer/Game" to="." method="_on_game_end_turn"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="ready_round_end" from="RoundOverScreen" to="." method="_on_round_over_screen_ready_round_end"]

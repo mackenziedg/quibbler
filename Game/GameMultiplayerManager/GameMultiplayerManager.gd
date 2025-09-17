@@ -169,13 +169,13 @@ func _ready() -> void:
         %StartButton.visible = true
         %StartButton.disabled = false
 
-    
+
 func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("drag_card"):
         if %TopBarContainer.get_global_rect().has_point(get_global_mouse_position()):
             _player_names_container.visible = not _player_names_container.visible
             _player_names_large_container.visible = not _player_names_large_container.visible
-    
+
 
 func _on_player_connected(id: int) -> void:
     if not is_multiplayer_authority():

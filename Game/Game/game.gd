@@ -6,8 +6,8 @@ signal end_turn(total_score: int)
 
 @onready var _draw_button: Button = %DrawButton
 @onready var _end_turn_button: Button = %EndTurnButton
-@onready var _hand_container: HFlowContainer = %HandContainer
-@onready var _word_container: HFlowContainer = %WordContainer
+@onready var _hand_container: GridContainer = %HandContainer
+@onready var _word_container: GridContainer = %WordContainer
 @onready var _submit_word_button: Button = %SubmitWordButton
 
 var _drawn := 0
@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
     if Input.is_action_just_pressed("drag_card"):
         var card: Card = _get_selected_card()
         if card:
-            var parent_container: HFlowContainer = card.get_parent()
+            var parent_container: GridContainer = card.get_parent()
             parent_container.remove_child(card)
             if parent_container == _hand_container:
                 _word_container.add_child(card)
@@ -100,6 +100,9 @@ func _update_word_status() -> void:
 
 func _get_selected_card() -> Card:
     var mouse_global_pos := get_global_mouse_position()
+    if (not %HandSuperContainer.get_global_rect().has_point(mouse_global_pos)
+    and not %WordSuperContainer.get_global_rect().has_point(mouse_global_pos)):
+        return null
     for c: Card in _hand_container.get_children():
         if c.get_global_rect().has_point(mouse_global_pos):
             return c

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cthvlothu3xns"]
+[gd_scene load_steps=9 format=3 uid="uid://cthvlothu3xns"]
 
 [ext_resource type="Script" uid="uid://cklw46qoemb3d" path="res://Game/Game/game.gd" id="1_qtw4q"]
 [ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="3_774ph"]
+[ext_resource type="Theme" uid="uid://7uwqgy1bpgge" path="res://Game/Game/assets/themes/scroll_container_theme.tres" id="3_bw1fx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_774ph"]
 bg_color = Color(1, 1, 1, 1)
@@ -249,16 +250,23 @@ text = "1,000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WordContainerPanel" type="PanelContainer" parent="CardsSuperContainer"]
+[node name="WordSuperContainer" type="PanelContainer" parent="CardsSuperContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_774ph")
 
-[node name="WordContainer" type="HFlowContainer" parent="CardsSuperContainer/WordContainerPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CardsSuperContainer/WordSuperContainer"]
+custom_minimum_size = Vector2(0, 276)
+layout_mode = 2
+theme = ExtResource("3_bw1fx")
+
+[node name="WordContainer" type="GridContainer" parent="CardsSuperContainer/WordSuperContainer/ScrollContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 276)
 layout_mode = 2
 size_flags_vertical = 6
-last_wrap_alignment = 1
+theme_override_constants/h_separation = 8
+columns = 5
 
 [node name="SubmitWordButton" type="Button" parent="CardsSuperContainer"]
 unique_name_in_owner = true
@@ -300,16 +308,24 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "0→9"
 
-[node name="HandContainerPanel" type="PanelContainer" parent="CardsSuperContainer/BottomContainer"]
+[node name="HandSuperContainer" type="PanelContainer" parent="CardsSuperContainer/BottomContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_774ph")
 
-[node name="HandContainer" type="HFlowContainer" parent="CardsSuperContainer/BottomContainer/HandContainerPanel"]
+[node name="HandContainerScroll" type="ScrollContainer" parent="CardsSuperContainer/BottomContainer/HandSuperContainer"]
+custom_minimum_size = Vector2(0, 276)
+layout_mode = 2
+theme = ExtResource("3_bw1fx")
+horizontal_scroll_mode = 0
+
+[node name="HandContainer" type="GridContainer" parent="CardsSuperContainer/BottomContainer/HandSuperContainer/HandContainerScroll"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 276)
 layout_mode = 2
 size_flags_vertical = 6
-last_wrap_alignment = 1
+theme_override_constants/h_separation = 8
+columns = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -323,7 +339,7 @@ grow_vertical = 0
 theme = ExtResource("3_774ph")
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
+theme_override_constants/margin_bottom = 36
 
 [node name="DrawButton" type="Button" parent="MarginContainer"]
 unique_name_in_owner = true

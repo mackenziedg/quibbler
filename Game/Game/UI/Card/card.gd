@@ -12,6 +12,18 @@ extends MarginContainer
 @onready var _anim := $AnimationPlayer
 
 
+func _ready() -> void:
+    _anim.play("on_create")
+    
+
+func submit_word() -> void:
+    _anim.play("on_submit_word")
+
+
+func destroy_leftover() -> void:
+    _anim.play("on_destroy_leftover")    
+
+
 func highlight(b: bool) -> void:
     if b:
         _anim.play("mouseover")

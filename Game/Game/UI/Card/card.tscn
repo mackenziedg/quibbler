@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqja83112web"]
+[gd_scene load_steps=9 format=3 uid="uid://bqja83112web"]
 
 [ext_resource type="Script" uid="uid://bpoxnv2syvgna" path="res://Game/Game/UI/Card/card.gd" id="1_rjlel"]
 [ext_resource type="Theme" uid="uid://qifpfel0mll" path="res://Game/Game/UI/Card/card_theme.tres" id="2_rjlel"]
@@ -41,6 +41,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_1nxha"]
 resource_name = "mouseover"
@@ -70,39 +82,123 @@ tracks/1/keys = {
 "values": [0, 5]
 }
 
-[sub_resource type="Animation" id="Animation_fjspr"]
-resource_name = "selected"
-length = 0.05
+[sub_resource type="Animation" id="Animation_dpsk8"]
+resource_name = "on_create"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CardPanel:modulate")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0486572),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.033333335, 0.05),
+"transitions": PackedFloat32Array(0.2871746, 0.21022414, 5.6568513),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.96, 0.79584, 0.7776, 1)]
+"values": [Vector2(1.1, 1.1), Vector2(1.1, 1.1), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 0
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0250889, 0.05),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.033333335),
+"transitions": PackedFloat32Array(2.2191396, 0.329877),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1qlle"]
+resource_name = "on_submit_word"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.43333334),
+"transitions": PackedFloat32Array(0.36602145, 0.6372803, 0.2588162),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.43333334),
+"transitions": PackedFloat32Array(0.37892908, 1, 0.18946458),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.958, 0.72, 0.24705882), Color(0.99607843, 0.90588236, 0.38039216, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.56666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_o751s"]
+resource_name = "on_destroy_leftover"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.43333334),
+"transitions": PackedFloat32Array(0.36602145, 0.6372803, 0.2588162),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.43333334),
+"transitions": PackedFloat32Array(0.37892908, 1, 0.18946458),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0.2666664, 0.23921569), Color(0.89, 0.23139998, 0.2643301, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.56666666),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fjspr"]
 _data = {
 &"RESET": SubResource("Animation_nooli"),
 &"mouseover": SubResource("Animation_1nxha"),
-&"selected": SubResource("Animation_fjspr")
+&"on_create": SubResource("Animation_dpsk8"),
+&"on_destroy_leftover": SubResource("Animation_o751s"),
+&"on_submit_word": SubResource("Animation_1qlle")
 }
 
 [node name="Card" type="MarginContainer"]

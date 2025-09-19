@@ -141,6 +141,10 @@ func _on_draw_button_pressed() -> void:
 
 
 func _on_end_turn_button_pressed() -> void:
+    for c in _hand_container.get_children():
+        c.destroy_leftover()
+    for c in _word_container.get_children():
+        c.destroy_leftover()
     _draw_button.disabled = true
     _end_turn_button.disabled = true
     _between_rounds = true
@@ -153,7 +157,7 @@ func _on_submit_word_button_pressed() -> void:
         _remaining_tiles.erase(letter)
     _submit_word_button.disabled = true
     for c in _word_container.get_children():
-        c.queue_free()
+        c.submit_word()
     _update_round_score_labels()
 
 

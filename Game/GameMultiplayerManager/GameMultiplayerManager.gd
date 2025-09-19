@@ -165,10 +165,6 @@ func _ready() -> void:
         "rounds_won": 0,
         "round_id": 0,
     })
-    if is_multiplayer_authority():
-        %WaitingLabel.text = "Press Start when everyone has joined."
-        %StartButton.visible = true
-        %StartButton.disabled = false
 
 
 func _process(_delta: float) -> void:

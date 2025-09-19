@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgr4vchl0dplw"]
+
+[ext_resource type="Shader" uid="uid://c1byfyawjn0er" path="res://Game/GameMultiplayerManager/waiting_to_start_shader.gdshader" id="1_1e8d8"]
+[ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="2_ib5hv"]
+[ext_resource type="Script" uid="uid://dwiyeabrkxdly" path="res://Game/GameMultiplayerManager/WaitToStartContainer.gd" id="2_m4d5m"]
+[ext_resource type="Shader" uid="uid://duu66j5s1rw6c" path="res://Game/GameMultiplayerManager/waiting_to_start_text_shader.gdshader" id="3_0kjk6"]
+[ext_resource type="Shader" uid="uid://dn7gtqqkhg8vk" path="res://Game/GameMultiplayerManager/button_pulse_shader.gdshader" id="3_m4d5m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ho6pe"]
+shader = ExtResource("1_1e8d8")
+shader_parameter/blur_amount = 2.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv0co"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6hqim"]
+shader = ExtResource("3_0kjk6")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ho6pe"]
+font_size = 36
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0kjk6"]
+shader = ExtResource("3_m4d5m")
+shader_parameter/size = Vector2(198, 112)
+shader_parameter/pulse_scale = 1.05
+shader_parameter/pulse_speed = 5.0
+
+[node name="WaitToStartContainer" type="PanelContainer"]
+material = SubResource("ShaderMaterial_ho6pe")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lv0co")
+script = ExtResource("2_m4d5m")
+
+[node name="MenuOptions" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="WaitingLabel" type="Label" parent="MenuOptions"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_6hqim")
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Waiting for everyone to join..."
+label_settings = SubResource("LabelSettings_ho6pe")
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="MenuOptions"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_0kjk6")
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ib5hv")
+theme_override_font_sizes/font_size = 64
+disabled = true
+text = "Start"
+
+[connection signal="pressed" from="MenuOptions/StartButton" to="." method="_on_start_button_pressed"]

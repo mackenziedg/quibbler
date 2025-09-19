@@ -1,26 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dqulto7dh603m"]
+[gd_scene load_steps=7 format=3 uid="uid://dqulto7dh603m"]
 
 [ext_resource type="Script" uid="uid://dy8u7c0iptdc7" path="res://Game/GameMultiplayerManager/GameMultiplayerManager.gd" id="1_b54r1"]
 [ext_resource type="PackedScene" uid="uid://cthvlothu3xns" path="res://Game/Game/Game.tscn" id="2_xwe6p"]
-[ext_resource type="Shader" uid="uid://c1byfyawjn0er" path="res://Game/GameMultiplayerManager/waiting_to_start_shader.gdshader" id="3_lv0co"]
-[ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="3_odiqh"]
+[ext_resource type="PackedScene" uid="uid://cgr4vchl0dplw" path="res://Game/GameMultiplayerManager/WaitToStartContainer.tscn" id="3_lv0co"]
 [ext_resource type="PackedScene" uid="uid://btn0ymh0g1p48" path="res://Game/Game/RoundOverScreen.tscn" id="3_s3r1r"]
 [ext_resource type="Theme" uid="uid://ctil2r685jdhw" path="res://Game/GameMultiplayerManager/player_info_label_theme.tres" id="5_ho6pe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho6pe"]
 bg_color = Color(0, 0.6, 0.85882354, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ho6pe"]
-shader = ExtResource("3_lv0co")
-shader_parameter/blur_amount = 2.5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv0co"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_ho6pe"]
-font_size = 36
-outline_size = 12
-outline_color = Color(0, 0, 0, 1)
 
 [node name="GameMultiplayerManager" type="Control"]
 layout_mode = 3
@@ -54,39 +41,9 @@ theme_override_constants/margin_right = 8
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="WaitToStartContainer" type="PanelContainer" parent="."]
+[node name="WaitToStartContainer" parent="." instance=ExtResource("3_lv0co")]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_ho6pe")
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lv0co")
-
-[node name="MenuOptions" type="VBoxContainer" parent="WaitToStartContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="WaitingLabel" type="Label" parent="WaitToStartContainer/MenuOptions"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Waiting for everyone to join..."
-label_settings = SubResource("LabelSettings_ho6pe")
-horizontal_alignment = 1
-
-[node name="StartButton" type="Button" parent="WaitToStartContainer/MenuOptions"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("3_odiqh")
-theme_override_font_sizes/font_size = 64
-disabled = true
-text = "Start"
 
 [node name="PlayerIdentifier" type="Label" parent="."]
 unique_name_in_owner = true
@@ -136,5 +93,5 @@ columns = 4
 
 [connection signal="draw_card" from="GameContainer/Game" to="." method="_on_game_draw_card"]
 [connection signal="end_turn" from="GameContainer/Game" to="." method="_on_game_end_turn"]
-[connection signal="pressed" from="WaitToStartContainer/MenuOptions/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="start_game" from="WaitToStartContainer" to="." method="_on_start_button_pressed"]
 [connection signal="ready_round_end" from="RoundOverScreen" to="." method="_on_round_over_screen_ready_round_end"]

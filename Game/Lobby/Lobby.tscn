@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://duc8ms1j6mwon"]
+[gd_scene load_steps=8 format=3 uid="uid://duc8ms1j6mwon"]
 
 [ext_resource type="Script" uid="uid://b8eah33fhpkl5" path="res://Game/Lobby/Lobby.gd" id="1_06f2m"]
 [ext_resource type="Theme" uid="uid://gco48y0hggmv" path="res://Game/Game/assets/themes/important_button.tres" id="2_7a8p8"]
+[ext_resource type="LabelSettings" uid="uid://ycur51ack0md" path="res://Game/GameMultiplayerManager/interround_label_settings.tres" id="3_aiidj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06f2m"]
 bg_color = Color(0, 0.6, 0.85882354, 1)
@@ -30,6 +31,24 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aiidj"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.54509807, 0.60784316, 0.7058824, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+shadow_color = Color(0.054545455, 0.057670455, 0.0625, 1)
+shadow_size = 8
+shadow_offset = Vector2(8, 8)
+
 [node name="Lobby" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -55,10 +74,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -225.5
-offset_top = -166.5
-offset_right = 225.5
-offset_bottom = 166.5
+offset_left = -224.0
+offset_top = -400.0
+offset_right = 227.0
+offset_bottom = 164.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 128
@@ -126,7 +145,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7a8p8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_7a8p8")
 placeholder_text = "Host Address"
 alignment = 1
-virtual_keyboard_type = 2
+virtual_keyboard_type = 6
 
 [node name="ClientButton" type="Button" parent="Menu/ButtonContainer"]
 unique_name_in_owner = true
@@ -137,7 +156,39 @@ theme = ExtResource("2_7a8p8")
 disabled = true
 text = "Connect to Room"
 
+[node name="FailedToConnectPopup" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -200.0
+offset_right = 232.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aiidj")
+
+[node name="FailedToConnectLabel" type="Label" parent="FailedToConnectPopup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Unable to join room!"
+label_settings = ExtResource("3_aiidj")
+
+[node name="OKButton" type="Button" parent="FailedToConnectPopup"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("2_7a8p8")
+text = "OK"
+
 [connection signal="text_changed" from="Menu/UserInfo/UsernameEdit" to="." method="_on_text_changed"]
 [connection signal="pressed" from="Menu/ButtonContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="text_changed" from="Menu/ButtonContainer/IPAddressEdit" to="." method="_on_text_changed"]
 [connection signal="pressed" from="Menu/ButtonContainer/ClientButton" to="." method="_on_client_button_pressed"]
+[connection signal="pressed" from="FailedToConnectPopup/OKButton" to="." method="_on_ok_button_pressed"]
